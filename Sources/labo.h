@@ -37,3 +37,10 @@ Node* trouverItemPos(Node* head, void* pos);
 Node* trouverItemNom(Node* head, char* name);
 
 int qteItems(Node* head);
+
+void ajouterRandom(Node head);
+
+void lireFichier();
+
+void ajouterFromFile();
+

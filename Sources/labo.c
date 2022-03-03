@@ -5,13 +5,34 @@ void ajouter(Node* head, void* item)
 {
 	Node* n = allocate(sizeof(Node));
 	n->data = item;
-	head->next = n;
 	n->next = NULL;
+	n->prev = head->prev;
+	head->prev = n;
+	if (n->prev->next != NULL) 
+	{
+		n->prev->next = n;
+	}
 }
 
-void enlever(Node* head, void* nom)
+void enlever(Node* head, void* name)
 {
-
+	Node* last = allocate(sizeof(Node));
+	Item* item = name;
+	while (head != NULL)
+	{
+		if (head->data == item->nom)
+		{
+			if (head->prev != NULL) 
+			{
+				last = head->prev;
+				head->prev = last->prev;
+				if (last->prev != NULL)
+				{
+					last->prev->next = NULL;
+				}
+			}
+		}
+	}
 }
 
 Node* trouverItemPos(Node* head, void* pos)
