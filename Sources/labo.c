@@ -40,20 +40,20 @@ Node* trouverItemPos(Node* head, void* pos)
 	
 }
 
-Node* trouverItemNom(Node* head, char* name)
+int trouverItemNom(Node* head, char* name)
 {
 	
 	Node* n = head;
-	Node* previousNode;
+	Item* item;
+	int count = 0;
 	while (n != NULL)
 	{
-		if (p->name == name)
+		Item* item = n->data;
+		if (item->nom == name)
 		{
-			memset(n, 0, sizeof(Node));
-			return previousNode;
+			return count;
 		}
-		previousNode = n;
-		n = n->next;
+		count++;
 	}
 }
 

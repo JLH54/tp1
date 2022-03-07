@@ -34,7 +34,7 @@ void trier(Node* head);
 
 Node* trouverItemPos(Node* head, void* pos);
 
-Node* trouverItemNom(Node* head, char* name);
+int trouverItemNom(Node* head, char* name);
 
 int qteItems(Node* head);
 
