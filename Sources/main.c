@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "labo.h"
 
@@ -229,6 +230,50 @@ static size_t getline(char** lineptr, size_t* n, FILE* stream) {
 // }
 
 int main(int argc, char** argv) {
+	/*-Peupler la liste d'items
+		- Ajouter l'item nommé "fiole" dans l'inventaire
+		- Peupler l'inventaire d'un nombre aléatoire d'items en considérant que la "fiole" a déjà été ajouté.
+		Choisir les autres items aléatoirement et les ajouter dans l'inventaire.
+		- Imprimer dans la console les items dans l'inventaire
+		- Trier la liste d'items dans l'inventaire relatif à leur valeur de vente
+		- enlever l'item "fiole" en utilisant son nom.
+		- Imprimer dans la console les items dans l'inventaire à nouveau.*/
+	heap = malloc(HEAP_SIZE);
+	Node* head = allocate(sizeof(Node));
+	Item* inventaire[nombreMaxInventaire()];
+	
+	Item boots;
+	boots.nom = "boots";
+	boots.cost = 25;
+
+	Item chainmail;
+	chainmail.nom = "chainmail";
+	chainmail.cost = 200;
+
+	Item sword;
+	sword.nom = "sword";
+	sword.cost = 50;
+
+#pragma region ajouter fiole
+	//-Ajouter l'item nommé "fiole" dans l'inventaire
+	Item fiole;
+	fiole.nom = "fiole";
+	fiole.cost = 10;
+#pragma endregion
+
+#pragma region peupler inventaire
+	//-Peupler l'inventaire d'un nombre aléatoire d'items en considérant que la "fiole" a déjà été ajouté.
+	srand(time(0));
+
+#pragma endregion
+	
+
+	ajouter(head, &boots);
+	ajouter(head, &chainmail);
+	ajouter(head, &sword);
+	ajouter(head, &fiole);
+
+	//montrerCeQuiA(head);
 	
 
 	return 0;

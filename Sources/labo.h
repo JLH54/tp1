@@ -32,13 +32,19 @@ void enlever(Node* head, void* nom);
 
 void trier(Node* head);
 
+void swap(void* data1, void* data2);
+
 Node* trouverItemPos(Node* head, void* pos);
 
 int trouverItemNom(Node* head, char* name);
 
 int qteItems(Node* head);
 
+void montrerCeQuiA(Node* head);
+
 void ajouterRandom(Node head);
+
+int nombreMaxInventaire();
 
 void lireFichier();
 
