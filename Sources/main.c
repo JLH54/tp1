@@ -5,6 +5,8 @@
 
 #include "labo.h"
 
+#define MAXINVENTAIRE 4
+
 uint8_t* heap = NULL;
 size_t heap_top = 0;
 
@@ -240,8 +242,10 @@ int main(int argc, char** argv) {
 		- Imprimer dans la console les items dans l'inventaire à nouveau.*/
 	heap = malloc(HEAP_SIZE);
 	Node* head = allocate(sizeof(Node));
-	Item* inventaire[nombreMaxInventaire()];
-	
+	head->next = NULL;
+	Node* inventaire = allocate(sizeof(Node));
+	inventaire->next = NULL;
+
 	Item boots;
 	boots.nom = "boots";
 	boots.cost = 25;
@@ -259,22 +263,39 @@ int main(int argc, char** argv) {
 	Item fiole;
 	fiole.nom = "fiole";
 	fiole.cost = 10;
+	ajouter(inventaire, &fiole);
 #pragma endregion
-
-#pragma region peupler inventaire
-	//-Peupler l'inventaire d'un nombre aléatoire d'items en considérant que la "fiole" a déjà été ajouté.
-	srand(time(0));
-
-#pragma endregion
-	
 
 	ajouter(head, &boots);
 	ajouter(head, &chainmail);
 	ajouter(head, &sword);
 	ajouter(head, &fiole);
 
-	//montrerCeQuiA(head);
+#pragma region peupler inventaire
+	//-Peupler l'inventaire d'un nombre aléatoire d'items en considérant que la "fiole" a déjà été ajouté.
+	srand(time(0));
+	//int maxItems = qteItems(head); ceci est pour si on veut pouvoir avoir autant d'objet que le jeux a
+	for (int i = 0; i < MAXINVENTAIRE; i++)
+	{
+		ajouterRandom(inventaire, head);
+	}
+#pragma endregion
 	
+#pragma region imprimer
+	montrerCeQuiA(inventaire);
+#pragma endregion
+	
+#pragma region trier
+	trier(inventaire);
+#pragma endregion
+	
+#pragma region enlever fiole
+	enlever(inventaire, "fiole");
+#pragma endregion
+
+#pragma region imprimer
+	montrerCeQuiA(inventaire);
+#pragma endregion
 
 	return 0;
 }

@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 #define HEAP_SIZE 1024 * 1024
 extern uint8_t* heap;
@@ -42,9 +43,7 @@ int qteItems(Node* head);
 
 void montrerCeQuiA(Node* head);
 
-void ajouterRandom(Node head);
-
-int nombreMaxInventaire();
+void ajouterRandom(Node* inventaire, Node* head);
 
 void lireFichier();
 

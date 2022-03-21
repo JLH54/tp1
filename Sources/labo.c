@@ -77,17 +77,19 @@ int trouverItemNom(Node* head, char* name)
 void trier(Node* head)
 {
 	// Trier la liste d'items dans l'inventaire relatif à leur valeur de vente
-	Item* item;
-	Item* item2;
 	Node* n = head->next;
-	while (n != NULL)
+	while (n->next != NULL)
 	{
 		Node* nextNode = n->next;
-		item = n->data;
-		item = nextNode->data;
+		Item* item = n->data;
+		Item* item2 = nextNode->data;
 		if (item2->cost > item->cost)
 		{
 			swap(n->data, nextNode->data);
+		}
+		if (n->next == NULL)
+		{
+			break;
 		}
 		n = n->next;
 	}
@@ -108,10 +110,10 @@ int qteItems(Node* head)
 	while (n != NULL)
 	{
 		count++;
+		n = n->next;
 	}
 	return count;
 }
-
 
 void montrerCeQuiA(Node* head)
 {
@@ -122,15 +124,60 @@ void montrerCeQuiA(Node* head)
 		item = n->data;
 		printf("Le nom : %s\n", item->nom);
 		printf("Son cout : %d\n", item->cost);
+		
 		n = n->next;
 	}
 }
 
-// a ne pas faire tout de suite
-void ajouterRandom(Node head)
+void ajouterRandom(Node* inventaire, Node* head)
 {
+	Node* n = head->next;
+	Node* joueur = inventaire->next;
 	// fiole = 1, sword = 2, chainmail = 3, boots = 4
-
+	int nombreRandom = rand() % 4 + 1;
+	int count = 0;
+	switch (nombreRandom)
+	{
+	case 1:
+		ajouter(joueur, n->data);
+		break;
+	case 2:
+		while (n != NULL)
+		{
+			if (count == 1)
+			{
+				ajouter(joueur, n->data);
+				break;
+			}
+			n = n->next;
+			count++;
+		}
+		break;
+	case 3:
+		while (n != NULL)
+		{
+			if (count == 2)
+			{
+				ajouter(joueur, n->data);
+				break;
+			}
+			n = n->next;
+			count++;
+		}
+		break;
+	case 4:
+		while (n != NULL)
+		{
+			if (count == 3)
+			{
+				ajouter(joueur, n->data);
+				break;
+			}
+			n = n->next;
+			count++;
+		}
+		break;
+	}
 }
 
 void lireFichier();
