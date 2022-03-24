@@ -243,8 +243,12 @@ int main(int argc, char** argv) {
 	heap = malloc(HEAP_SIZE);
 	Node* head = allocate(sizeof(Node));
 	head->next = NULL;
+	head->prev = NULL;
+	head->data = NULL;
 	Node* inventaire = allocate(sizeof(Node));
 	inventaire->next = NULL;
+	inventaire->prev = NULL;
+	inventaire->data = NULL;
 
 	Item boots;
 	boots.nom = "boots";
@@ -282,7 +286,9 @@ int main(int argc, char** argv) {
 #pragma endregion
 	
 #pragma region imprimer
+	printf("print1 de l'inventaire\n");
 	montrerCeQuiA(inventaire);
+	printf("\n");
 #pragma endregion
 	
 #pragma region trier
@@ -294,6 +300,7 @@ int main(int argc, char** argv) {
 #pragma endregion
 
 #pragma region imprimer
+	printf("print2 de l'inventaire\n");
 	montrerCeQuiA(inventaire);
 #pragma endregion
 

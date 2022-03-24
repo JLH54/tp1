@@ -15,31 +15,33 @@ void ajouter(Node* head, void* item)
 		n->next = head->next;
 	}
 	head->next = n;
-	n->prev = head->prev;
+	n->prev = head;
 }
 
-void enlever(Node* head, void* name)
+void enlever(Node* head, char* name)
 {
-	Node* last = allocate(sizeof(Node));
-	Item* item = name;
-	while (head != NULL)
+	Node* n = head->next;
+	while (n != NULL)
 	{
-		if (head->data == item->nom)
+		Item* item = n->data;
+		if (item->nom == name)
 		{
-			if (head->prev != NULL) 
+			if (n->next != NULL)
 			{
-				last = head->prev;
-				head->prev = last->prev;
-				if (last->prev != NULL)
-				{
-					last->prev->next = NULL;
-				}
+				n->prev->next = n->next;
+				n->next->prev = n->prev;
 			}
+			else
+			{
+				n->prev->next = n->next;
+			}
+			break;
 		}
+		n = n->next;
 	}
 }
 
-Node* trouverItemPos(Node* head, void* pos)
+Item* trouverItemPos(Node* head, void* pos)
 {
 	// il faut retourner la struct donc ce serait le item
 	Node* n = head;
@@ -56,7 +58,7 @@ Node* trouverItemPos(Node* head, void* pos)
 	}
 }
 
-int trouverItemNom(Node* head, char* name)
+Item* trouverItemNom(Node* head, char* name)
 {
 	// il faut retourner la struct donc ce serait le item
 	Node* n = head;
@@ -73,34 +75,38 @@ int trouverItemNom(Node* head, char* name)
 	}
 }
 
-
 void trier(Node* head)
 {
 	// Trier la liste d'items dans l'inventaire relatif à leur valeur de vente
+	// apres m'avoir essayer de faire quelque chose de moi-meme, je me suis resolu a chercher des solutions sur internet :
+	// https://stackoverflow.com/questions/35914574/sorting-linked-list-simplest-way
+	// je sais comment il marche, je m'en allait un peu sur cette lancer la, sauf que certaine parti ne fonctionnais pas
+	// j'ai donc mit en commentaire les etapes pour demontrer que je comprend comment il marche
 	Node* n = head->next;
-	while (n->next != NULL)
+	//on regarde s'il n'est pas NULL
+	while (n != NULL)
 	{
-		Node* nextNode = n->next;
-		Item* item = n->data;
-		Item* item2 = nextNode->data;
-		if (item2->cost > item->cost)
+		//On utilise une variable temporaire pour passer a travers tout les donnees de la liste chainee
+		Node* tempNode = n;
+		while (tempNode->next != NULL)
 		{
-			swap(n->data, nextNode->data);
+			Item* item = tempNode->data;
+			Item* item2 = tempNode->next->data;
+			//s'il est plus grand ils vont s'echanger
+			if (item->cost > item2->cost)
+			{
+				//bon j'ai essayer de faire une fonction swap avec mais sa a pas l'air de fonctionner autre qu'avec ca
+				//je pense que c'est a cause qu'il n'echangeaient pas, meme si je mettais &data1
+				void* temp = tempNode->data;
+				tempNode->data = tempNode->next->data;
+				tempNode->next->data = temp;
+			}
+			//on prend l'autre d'apres pour continuer la boucle
+			tempNode = tempNode->next;
 		}
-		if (n->next == NULL)
-		{
-			break;
-		}
+		//on refait la meme chose pour l'autre, ce qui fait que sa va finir la boucle
 		n = n->next;
 	}
-}
-
-void swap(void* data1, void* data2)
-{
-	void* temp;
-	temp = data1;
-	data1 = data2;
-	data2 = temp;
 }
 
 int qteItems(Node* head)
@@ -180,6 +186,11 @@ void ajouterRandom(Node* inventaire, Node* head)
 	}
 }
 
-void lireFichier();
+void ajouterFromFile(Node* head)
+{
+	Node* n = head->next;
 
-void ajouterFromFile();
+	FILE* data = fopen("data.csv", "r");
+	// fonction pour ajouter dans le head les objets qui sont dans le data.csv
+	
+}

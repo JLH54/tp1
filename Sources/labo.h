@@ -33,11 +33,9 @@ void enlever(Node* head, void* nom);
 
 void trier(Node* head);
 
-void swap(void* data1, void* data2);
+Item* trouverItemPos(Node* head, void* pos);
 
-Node* trouverItemPos(Node* head, void* pos);
-
-int trouverItemNom(Node* head, char* name);
+Item* trouverItemNom(Node* head, char* name);
 
 int qteItems(Node* head);
 
@@ -45,7 +43,5 @@ void montrerCeQuiA(Node* head);
 
 void ajouterRandom(Node* inventaire, Node* head);
 
-void lireFichier();
-
-void ajouterFromFile();
+void ajouterFromFile(Node* head);
 
